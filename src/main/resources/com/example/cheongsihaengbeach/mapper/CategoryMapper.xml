@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.cheongsihaengbeach.mapper.CategoryMapper">
+    <select id="getCategorys" resultType="hashmap" parameterType="hashmap">
+    	SELECT  *
+		FROM category
+		where 1=1
+		<if test="category_upper_id != null and category_upper_id != ''">and category_upper_id = #{category_upper_id}</if>
+		<if test="not_waiting_list != null and not_waiting_list != ''">and category_id not in (90,91)</if>
+    </select>
+    <insert id="insertCategory" parameterType="hashmap">
+    	insert into category(
+    		category_name,
+    		category_upper_id,
+    		category_max_quantity
+    	)values(
+    		#{category_name},
+    		#{category_upper_id},
+    		<if test="category_max_quantity != null and category_max_quantity != ''">#{category_max_quantity}</if>
+    		<if test="category_max_quantity == null or category_max_quantity == ''">NULL</if>
+    	)
+    </insert>
+    <update id="updateCategory" parameterType="hashmap">
+    	update category set
+	    	category_name = #{category_name},
+	    	category_max_quantity = <if test="category_max_quantity != null and category_max_quantity != ''">#{category_max_quantity}</if><if test="category_max_quantity == null or category_max_quantity == ''">NULL</if>
+    	where category_id = #{category_id}
+    </update>
+    <delete id="deleteCategory" parameterType="hashmap">
+    	delete from category
+    	where category_id = #{category_id}
+    </delete>
+    <select id="getDefaultCategorys" resultType="hashmap">
+    <![CDATA[
+	    SELECT *,
+				(select category_name FROM category WHERE category_id = A.category_upper_id) AS category_upper_name
+		FROM category A
+		WHERE A.category_upper_id != 0
+		and (select category_id from category where category_id = A.category_upper_id) is not null
+		order by category_id in (90,91) asc, category_id asc
+	]]>
+    </select>
+</mapper>

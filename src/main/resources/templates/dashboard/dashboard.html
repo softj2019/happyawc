@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>예약</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+	<div class="main res-main">
+        <h1>예약</h1>
+        <div>
+            <section class="search-box mb20 mt20">
+              <form action="" method="get" onsubmit="return false;">
+                <div class="date">
+                    <input type="text" id="from_date" name="res_date" class="date_pick input2" placeholder="예약일"> 
+                    <i class="cal1"></i>
+                </div>
+                 <button type="submit" class="btn-w" onclick="searchTable()">검색</button>
+                 <button type="button" class="btn-blue" onclick="reservationPopup()">예약등록</button>
+              </form>
+            </section>
+            <section class="table-out">
+                <table class="in-table mb20">
+                  <tbody class="table-head">
+                    <tr>
+                      <td class="td-t1">대분류</td>
+                      <td class="td-t1">중분류</td>
+                      <td>
+                      	<table class="sub-in-table font-b">
+                      		<tr class="tit-tr">
+                      			  <td rowspan="2" class="td-name bgpink">이름</td>
+			                      <td rowspan="2" class="td-ph bgpink">연락처</td>
+			                      <td rowspan="2" class="td-w bgpink">구매방법</td>
+			                      <td rowspan="2" class="td-w bgpink">금액</td>
+			                      <td colspan="3" class="bgpurple">기본옵션</td>
+<!--			                      <td colspan="3" class="bgLGrey">서핑강습</td>-->
+<!--			                      <td colspan="2" class="bgLpink">서핑렌탈</td>-->
+<!--			                      <td colspan="1" class="bgyellow">파티</td>-->
+<!--			                      <td colspan="1" class="bgLBlue">펍</td>-->
+			                      <td rowspan="2" class="td-re bgpink">메모</td>
+			                      <td rowspan="2" class="td-t1">등록일</td>
+                      		</tr>
+                      		<tr>
+		                      <td class="td-w bgpurple">수량</td>
+		                      <td class="td-w bgpurple">예약일</td>
+<!--		                      <td class="td-w bgpurple">입실여부</td>-->
+<!--		                      <td class="td-w bgLGrey">수량</td>-->
+<!--		                      <td class="td-w bgLGrey">강습시간</td>-->
+<!--		                      <td class="td-w bgLGrey">출석체크</td>-->
+<!--		                      <td class="td-w bgLpink">수량</td>-->
+<!--		                      <td class="td-w bgLpink">렌탈종류</td>-->
+<!--		                      <td class="td-w bgyellow">수량</td>-->
+<!--		                      <td class="td-w bgLBlue">수량</td>-->
+		                    </tr>
+                      	</table>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody class="tbodyReservation">
+                  
+                  </tbody>
+                </table>
+                
+                <table class="in-table">
+	                <colgroup>
+	                	<col width="10%">
+	                	<col width="10%">
+<!--	                	<col width="10%">-->
+<!--	                	<col width="10%">-->
+<!--	                	<col width="10%">-->
+<!--	                	<col width="10%">-->
+<!--	                	<col width="10%">-->
+<!--	                	<col width="3%">-->
+<!--	                	<col width="3%">-->
+<!--	                	<col width="4%">-->
+<!--	                	<col width="10%">-->
+<!--	                	<col width="3%">-->
+<!--	                	<col width="3%">-->
+<!--	                	<col width="4%">-->
+	                </colgroup>
+                	<tbody class="table-head mb10">
+	                	<tr>
+	                		<td>기본옵션</td>
+	                		<td class="fw100" colspan="12"><span class="option_default_cnt"></span>명</td>
+<!--	                		<td>서핑강습</td>-->
+<!--	                		<td class="fw100"><span class="option_surfing_class_cnt"></span>명</td>-->
+<!--	                		<td>서핑렌탈</td>-->
+<!--	                		<td class="fw100"><span class="option_surfing_rental_cnt"></span>명</td>-->
+<!--	                		<td>파티</td>-->
+<!--	                		<td class="fw100">남 <span class="option_party_cnt_m"></span>명</td>-->
+<!--	                		<td class="fw100">여 <span class="option_party_cnt_w"></span>명</td>-->
+<!--	                		<td class="fw100">총 <span class="option_party_cnt_t"></span>명</td>-->
+<!--	                		<td>펍</td>-->
+<!--	                		<td class="fw100">남 <span class="option_pub_cnt_m"></span>명</td>-->
+<!--	                		<td class="fw100">여 <span class="option_pub_cnt_w"></span>명</td>-->
+<!--	                		<td class="fw100">총 <span class="option_pub_cnt_t"></span>명</td>-->
+	                	</tr>
+                	</tbody>
+                </table>
+                <div class="surfingClassTimeTotal mb20">
+                </div>
+                <div class="">
+	                <h1>총매출: <span class="total_payment"></span>원</h1>
+	                <p class="hidden">강릉 서핑: <span class="payment_ngs"></span>원 /
+	                양양 서핑: <span class="payment_nys"></span>원 / 
+	                게스트 하우스: <span class="payment_ngh"></span>원 / 
+	                프립: <span class="payment_frip"></span>원 / 
+	                현금: <span class="payment_cash"></span>원 / 
+	                카드: <span class="payment_card"></span>원 / 
+	                서비스: <span class="payment_service"></span>원/ 
+	                현장결제 현금: <span class="payment_fcash"></span>원 /
+	                현장결제 카드: <span class="payment_fcard"></span>원 / 
+	                직접입력: <span class="payment_custom"></span>원</p>
+                </div>
+            </section>
+            <th:block th:replace="fragments/pagination"></th:block>
+        </div>
+    </div>
+<script type="text/javascript" th:src="'/assets/js/'+${jsFileName}+'.js'"></script>
+</th:block>
+</body>
+</html>

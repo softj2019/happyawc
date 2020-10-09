@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
+    <header>
+        <div class="logo">해피아워크루즈</div>
+        <div class="nav">
+            <ul>
+                <li th:class="${navNo} == '1' ? 'nav-on' : ''"><a href="/dashboard">예약</a></li>
+                <li th:class="${navNo} == '2' ? 'nav-on' : ''"><a href="/index">예약자 검색</a></li>
+                <li th:class="${navNo} == '3' ? 'nav-on' : ''"><a href="/reservation">분류관리</a></li>
+            </ul>
+        </div>
+        <div>
+        	<a href="/security/logout" class="logout">로그아웃</a>
+        </div>
+    </header>
+</th:block>
+</html>
