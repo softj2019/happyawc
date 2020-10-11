@@ -42,10 +42,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>남/여 선택</th>
+                    <th>대인/소인 선택</th>
                     <td>
-	                    <input type="radio" value="남" name="res_sex" id="s1" checked="checked"><label for="s1">남자</label>
-						<input type="radio" value="여" name="res_sex" id="s2"><label for="s2">여자</label>
+	                    <input type="radio" value="대인" name="res_sex" id="s1" checked="checked"><label for="s1">대인</label>
+						<input type="radio" value="소인" name="res_sex" id="s2"><label for="s2">소인</label>
                     </td>
                 </tr>
                 <tr>
@@ -64,28 +64,28 @@
                     <th>금액</th>
                     <td><input type="number" name="res_payment"></td>
                 </tr>
-                <tr class="hidden">
+                <tr class="">
                     <th>구매방법</th>
                     <td>
-                        <input type="radio" value="일반" name="res_pay_method" id="pay1" checked="checked"><label for="pay1">일반</label>
-						<input type="radio" value="양양 서핑" name="res_pay_method" id="pay2"><label for="pay2">양양 서핑</label>
-						<input type="radio" value="게스트 하우스" name="res_pay_method" id="pay3"><label for="pay3">게스트 하우스</label>
-						<input type="radio" value="프립" name="res_pay_method" id="pay10"><label for="pay10">프립</label><br>
+<!--                        <input type="radio" value="대인" name="res_pay_method" id="pay1" checked="checked"><label for="pay1">대인</label>-->
+<!--						<input type="radio" value="소인" name="res_pay_method" id="pay2"><label for="pay2">소인</label>-->
+<!--						<input type="radio" value="게스트 하우스" name="res_pay_method" id="pay3"><label for="pay3">게스트 하우스</label>-->
+<!--						<input type="radio" value="프립" name="res_pay_method" id="pay10"><label for="pay10">프립</label><br>-->
 						<input type="radio" value="현금" name="res_pay_method" id="pay4"><label for="pay4">현금</label>
 						<input type="radio" value="카드" name="res_pay_method" id="pay5"><label for="pay5">카드</label>
-						<input type="radio" value="서비스" name="res_pay_method" id="pay6"><label for="pay6">서비스</label>
-						<input type="radio" value="현장결제 카드" name="res_pay_method" id="pay7"><label for="pay7">현장결제 카드</label>
-						<input type="radio" value="현장결제 현금" name="res_pay_method" id="pay8"><label for="pay8">현장결제 현금</label><br>
-						<input type="radio" value="custom" name="res_pay_method" id="pay9"><label for="pay9">직접입력</label><br>
-                        <input type="text" placeholder="직접 입력" name="res_pay_method_text" class="res_pay_method_text hide">
+						<input type="radio" value="입금" name="res_pay_method" id="pay6"><label for="pay6">입금</label>
+<!--						<input type="radio" value="현장결제 카드" name="res_pay_method" id="pay7"><label for="pay7">현장결제 카드</label>-->
+<!--						<input type="radio" value="현장결제 현금" name="res_pay_method" id="pay8"><label for="pay8">현장결제 현금</label><br>-->
+<!--						<input type="radio" value="custom" name="res_pay_method" id="pay9"><label for="pay9">직접입력</label><br>-->
+<!--                        <input type="text" placeholder="직접 입력" name="res_pay_method_text" class="res_pay_method_text hide">-->
                     </td>
                 </tr>
-                <tr class="hidden">
-                    <th>입실여부</th>
+                <tr class="">
+                    <th>결제여부</th>
                     <td>
 	                    <select name="res_checkin_yn" id="room">
-	                        <option value="Y">입실</option>
-	                        <option value="N" selected="selected">미입실</option>
+	                        <option value="Y">결제완료</option>
+	                        <option value="N" selected="selected">미결제</option>
 	                    </select>
                     </td>
                 </tr>

@@ -33,6 +33,14 @@
 		and date_format(A.res_date,'%Y-%m-%d') = #{res_date}
 		and A.category_id = #{category_id}
 	</select>
+	<select id="getReservationTotalMonthPayment" parameterType="hashmap" resultType="int">
+		select ifnull(sum(A.res_payment),0) as total
+		from reservation A
+		where 1=1
+		<![CDATA[AND A.reg_date >= date_format(LAST_DAY(NOW() - interval 1 month) + interval 1 DAY,'%y-%m-%d 00:00:00') ]]>
+		<![CDATA[AND A.reg_date <= date_format(now(),'%y-%m-%d %H:%i:%s') ]]>
+	</select>
+
 	<select id="getReservations" resultMap="reservationMap" parameterType="hashmap">
 		SELECT date_format(A.res_date,'%Y-%m-%d %H:%i') res_date,
 			date_format(A.reg_date,'%Y-%m-%d %H:%i') reg_date,

@@ -756,3 +756,20 @@ table *{
 .hidden{
     display:none !important
 }
+
+
+.table-footer td{
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+.ReservationStatus table{
+    width: 100%;
+}
+.ReservationStatus table td{
+    padding: 5px;
+}
+.ReservationStatus table td:last-child{
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+}

@@ -98,7 +98,8 @@ public class RestApiController {
 		Map<String,Object> result = new HashMap<>();
 		reservationVO.setDisplayRowCount(99999999);
 		reservationVO.pageCalculate(restApiService.getReservationCount(params));
-		
+		//이번달매출
+		result.put("totalMonthPayment",restApiService.getReservationTotalMonthPayment(params));
 		params.put("rowStart", reservationVO.getRowStart());
 		params.put("displayRowCount", reservationVO.getDisplayRowCount());
 		restApiService.getReservations(params, result);
@@ -106,7 +107,6 @@ public class RestApiController {
 		result.put("searchVO",reservationVO);
 		return result;
 	}
-	
 	//입실여부수정
 	@RequestMapping("/updateReservationStats")
 	public Map<String, Object> updateReservationStats(@RequestParam HashMap<String,Object> params, HttpServletRequest req, HttpServletResponse res, HttpSession sess,ModelMap model,ReservationVO reservationVO) {

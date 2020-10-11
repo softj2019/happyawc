@@ -16,6 +16,7 @@ public interface ReservationMapper {
 	
 	int getDateCategoryQuantityTotal(Map<String, Object> params);
 	int getReservationCount(Map<String, Object> params);
+	int getReservationTotalMonthPayment(Map<String, Object> params);
 	List<Map<String,Object>> getReservations(Map<String, Object> params);
 	Map<String,Object> getReservationDetail(Map<String, Object> params);
 }

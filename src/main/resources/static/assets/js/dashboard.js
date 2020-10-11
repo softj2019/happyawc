@@ -77,11 +77,14 @@ function loadReservationTable() {
 	var payment_custom = 0;
 	
 	postCallAjax('/api/getReservations', searchVO, function(data){
-		console.log(data);
+		//이번달 통계
+		$("span.month_total_payment").text(data.totalMonthPayment.toLocaleString('en'));
 		searchVO = data.searchVO;
 		var list = data.reservations;
 		var listYesterday = data.reservationsYesterday;
 		var categoryList = data.categorys
+		//통계로드
+		loadReservationState(searchVO,list,categoryList);
 		var html = '';
 
 		var groupCategory =  categoryList.reduce(function(acc, cur, idx){
@@ -105,7 +108,7 @@ function loadReservationTable() {
 						                	'<td class="td-w"></td>' +
 						                	'<td class="td-w"></td>' +
 						                	'<td class="td-w"></td>' +
-						                	// '<td class="td-w"></td>' +
+						                	'<td class="td-w"></td>' +
 						                	// '<td class="td-w"></td>' +
 						                	// '<td class="td-w"></td>' +
 						                	// '<td class="td-w"></td>' +
@@ -114,7 +117,7 @@ function loadReservationTable() {
 						                	// '<td class="td-w"></td>' +
 						                	// '<td class="td-w"></td>' +
 						                	'<td class="td-re"></td>' +
-						                	'<td class="td-t1"></td>' +
+						                	// '<td class="td-t1"></td>' +
 						                '</tr>' +
 					                '</table>' +
 								'</td>' +
@@ -131,7 +134,7 @@ function loadReservationTable() {
 				                	'<td class="td-w"></td>' +
 				                	'<td class="td-w"></td>' +
 				                	'<td class="td-w"></td>' +
-				                	// '<td class="td-w"></td>' +
+				                	'<td class="td-w"></td>' +
 				                	// '<td class="td-w"></td>' +
 				                	// '<td class="td-w"></td>' +
 				                	// '<td class="td-w"></td>' +
@@ -140,7 +143,7 @@ function loadReservationTable() {
 				                	// '<td class="td-w"></td>' +
 				                	// '<td class="td-w"></td>' +
 				                	'<td class="td-re"></td>' +
-				                	'<td class="td-t1"></td>' +
+				                	// '<td class="td-t1"></td>' +
 				                '</tr>' +
 					                '</table>' +
 								'</td>' +
@@ -152,14 +155,14 @@ function loadReservationTable() {
 		
 		var surfingClassYesterdayHtml = '';
 		var surfingClassYesterday_quantity_total = 0;
-		
+
 		listYesterday.forEach(function(el){
 			var option = el.res_options;
-			
+
 			var surfingClass = option.find(function(el){
 				return el.option_name == '서핑강습';
 			});
-			
+
 			if(surfingClass){
 				var class_time = '';
 				if(new Date(surfingClass.option_hope_time).format("yyyyMMdd") != new Date(el.res_date).format("yyyyMMdd")){
@@ -171,7 +174,7 @@ function loadReservationTable() {
 					option_surfing_class_cnt += parseInt(surfingClass.option_quantity);
 					if(!option_surfing_class_cnt_obj[class_time]) option_surfing_class_cnt_obj[class_time] = parseInt(surfingClass.option_quantity);
 					else option_surfing_class_cnt_obj[class_time] += parseInt(surfingClass.option_quantity);
-					
+
 					surfingClassYesterdayHtml += '<tr class="reservation_tr" data-id="'+el.res_id+'">' +
 			                    // '<td class="td-name reservation_name" data-id="'+el.res_id+'">'+el.res_name+'</td>' +
 			                    // '<td class="td-ph">'+el.res_phone+'</td>' +
@@ -182,13 +185,13 @@ function loadReservationTable() {
 			                    // '<td class="td-w toggleCheckinYn '+(el.res_checkin_yn == 'Y' ? 'bgBlue' : '')+'" data-id="'+el.res_id+'">'+el.res_checkin_yn+'</td>' +
 								// '<td class="td-w">'+(el.res_sex ? el.res_sex : '')+' '+surfingClass.option_quantity+'명</td>' +
 								// '<td class="td-w">'+class_time+'</td>' +
-								// '<td data-id="'+surfingClass.option_id+'" class="td-w toggleUseYn '+(surfingClass.option_use_yn == 'Y' ? 'bgBlue' : '')+'">'+surfingClass.option_use_yn+'</td>' +
+								'<td data-id="'+surfingClass.option_id+'" class="td-w toggleUseYn '+(surfingClass.option_use_yn == 'Y' ? 'bgBlue' : '')+'">'+surfingClass.option_use_yn+'</td>' +
 								// '<td class="td-w"></td>' +
 			                    // '<td class="td-w"></td>' +
 			                    // '<td class="td-w"></td>' +
 			                    // '<td class="td-w"></td>' +
 			                    '<td class="td-re">'+el.remark+'</td>' +
-			                    '<td class="td-t1">'+new Date(el.reg_date).format('yyyy-MM-dd')+'</td>' +
+			                    // '<td class="td-t1">'+new Date(el.reg_date).format('yyyy-MM-dd')+'</td>' +
 					          '</tr>';
 				}
 			}
@@ -196,7 +199,7 @@ function loadReservationTable() {
 		//전날예약중에서 다음날서핑강습추가
 		$("td[category-id="+42+"]").children('span.quantity_total').text(surfingClassYesterday_quantity_total);
 		$("table[category-id="+42+"]").html(surfingClassYesterdayHtml);
-		
+
 		var groupList =  list.reduce(function(acc, cur, idx){
 			if(!acc[cur['category_id']]) acc[cur['category_id']] = [];
 			acc[cur['category_id']].push(cur);
@@ -267,7 +270,7 @@ function loadReservationTable() {
 	                        '<td rowspan="'+optionLen+'" class="td-w">'+el.res_payment.toLocaleString('en')+'</td>' +
 	                        '<td rowspan="'+optionLen+'" class="td-w">'+(el.res_sex ? el.res_sex : '')+' '+el.res_quantity+'명</td>' +
 	                        '<td rowspan="'+optionLen+'" class="td-w">'+new Date(el.res_date).format("yyyy-MM-dd")+'</td>' +
-	                        // '<td rowspan="'+optionLen+'" class="td-w toggleCheckinYn '+(el.res_checkin_yn == 'Y' ? 'bgBlue' : '')+'" data-id="'+el.res_id+'">'+el.res_checkin_yn+'</td>' +
+	                        '<td rowspan="'+optionLen+'" class="td-w toggleCheckinYn '+(el.res_checkin_yn == 'Y' ? 'bgBlue' : '')+'" data-id="'+el.res_id+'">'+el.res_checkin_yn+'</td>' +
 					'';
 				// options.forEach(function(elSub, idx){
 				// 	if(elSub){
@@ -321,7 +324,7 @@ function loadReservationTable() {
 				// 	}
 				// });
 				html +=		'<td class="td-re" colspan="'+optionLen+'">'+el.remark+'</td>' +
-							'<td class="td-t1" colspan="'+optionLen+'">'+new Date(el.reg_date).format('yyyy-MM-dd')+'</td>' +
+							// '<td class="td-t1" colspan="'+optionLen+'">'+new Date(el.reg_date).format('yyyy-MM-dd')+'</td>' +
 				          '</tr>';
 			})
 			
@@ -363,8 +366,75 @@ function loadReservationTable() {
 		});
 		$(".surfingClassTimeTotal").html(surfingClassTimeHtml);
 	});
-}
 
+}
+//통계 로드
+function loadReservationState(searchVO,list,categoryList) {
+
+	var option_default_cnt = 0;
+	var html = '';
+	var groupList =  list.reduce(function(acc, cur, idx){
+		if(!acc[cur['category_id']]) acc[cur['category_id']] = [];
+		acc[cur['category_id']].push(cur);
+		return acc;
+	},{});
+	var groupCategory =  categoryList.reduce(function(acc, cur, idx){
+		if (!acc[cur['category_upper_name']]) acc[cur['category_upper_name']] = [];
+		acc[cur['category_upper_name']].push(cur);
+		return acc;
+	},{});
+	$.each(groupCategory,function(key, val){
+
+		val.forEach(function(category, idx){
+			if(idx == 0){
+				html +=
+					'<tr>' +
+						'<td class="td-t1 '+(category.category_id == 91  ? 'bgyellow' : '')+'" rowspan="'+val.length+'">'+key+'</td>' +
+						'<td class="td-t1 category2-td '+(category.category_id == 91  ? 'bgyellow' : '')+'" upper-id="'+category.category_upper_id+'" >'+
+							category.category_name+
+						'</td>' +
+
+						'<td>' +
+							'<div class="reservState" category-id="'+category.category_id+'"> ' +
+
+							'</div>'+
+						'</td>' +
+						'<td></td>' +
+					'</tr>';
+			}else{
+				html +=
+					'<tr>' +
+						'<td class="td-t1 category2-td" upper-id="'+category.category_upper_id+'" >' +
+							category.category_name +
+						'</td>' +
+					'<td>' +
+						'<div class="reservState" category-id="'+category.category_id+'"> ' +
+
+						'</div>'+
+					'</td>' +
+					'<td></td>' +
+					'</tr>';
+			}
+		});
+	});
+	$(".ReservationStatus table tbody").html(html);
+	$.each(groupList, function(key,val){
+
+		$(".ReservationStatus td[category-id="+key+"]").children('.quantity_total').text(quantity_total);
+		var total_payment = 0;
+		var quantity_total = 0;
+		val.forEach(function(el){
+			option_default_cnt += parseInt(el.res_quantity);
+			total_payment += parseInt(el.res_payment);
+			quantity_total += parseInt(el.res_quantity);
+		})
+
+		$(".reservState[category-id="+key+"]").text(total_payment.toLocaleString('en')+" 원 / "+quantity_total.toLocaleString('en')+" 명");
+
+
+	});
+
+}
 //검색버튼
 function searchTable(){
 	if(!$('input[name=res_date]').val()){

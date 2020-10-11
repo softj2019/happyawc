@@ -179,7 +179,9 @@ public class RestApiService {
 	public int getReservationCount(HashMap<String, Object> params) {
 		return reservationMapper.getReservationCount(params);
 	}
-	
+	public int getReservationTotalMonthPayment(HashMap<String, Object> params){
+		return reservationMapper.getReservationTotalMonthPayment(params);
+	}
 	public void updateReservationStats(Map<String,Object> params, Map<String,Object> result) {
 		reservationMapper.updateReservationStats(params);
 		

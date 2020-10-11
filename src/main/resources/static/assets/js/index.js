@@ -80,7 +80,7 @@ function loadReservationTable() {
                             '<td rowspan="'+optionLen+'" class="td-w">'+el.res_payment.toLocaleString('en')+'</td>' +
                             '<td rowspan="'+optionLen+'" class="td-w">'+(el.res_sex ? el.res_sex : '')+' '+el.res_quantity+'명</td>' +
                             '<td rowspan="'+optionLen+'" class="td-w">'+new Date(el.res_date).format("yyyy-MM-dd")+'</td>' +
-                            // '<td rowspan="'+optionLen+'" class="td-w toggleCheckinYn '+(el.res_checkin_yn == 'Y' ? 'bgBlue' : '')+'" data-id="'+el.res_id+'">'+el.res_checkin_yn+'</td>' +
+                            '<td rowspan="'+optionLen+'" class="td-w toggleCheckinYn '+(el.res_checkin_yn == 'Y' ? 'bgBlue' : '')+'" data-id="'+el.res_id+'">'+el.res_checkin_yn+'</td>' +
 					'';
 				// options.forEach(function(elSub, idx){
 				// 	if(elSub){
@@ -116,7 +116,7 @@ function loadReservationTable() {
 				// 	}
 				// });
 				html +=		'<td colspan="'+optionLen+'">'+el.remark+'</td>' +
-							'<td colspan="'+optionLen+'">'+new Date(el.reg_date).format('yyyy-MM-dd')+'</td>' +
+							// '<td colspan="'+optionLen+'">'+new Date(el.reg_date).format('yyyy-MM-dd')+'</td>' +
 				          '</tr>';
 			});
 		}else{
